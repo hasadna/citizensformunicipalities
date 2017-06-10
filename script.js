@@ -109,8 +109,8 @@ function downloadPlaces(cb) {
         emailAddress: arr[6],
         facebookGroup: arr[7],
         facebookExists: Boolean(arr[7]) ? "showComponent" : "dontShowComponent",
-        otherLinks: arr[7],
-        otherLinksExists: Boolean(arr[7]) ? "showComponent" : "dontShowComponent",
+        otherLinks: arr[8],
+        otherLinksExists: Boolean(arr[8]) ? "showComponent" : "dontShowComponent",
       }
     })
     return objects;
