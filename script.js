@@ -1,3 +1,5 @@
+// use these for the labels numbering
+var hebrewLetters = 'אבגדהוזחטיכלמנסעפצקרשת';
 var KEY = 'AIzaSyBurnP2Y9-YavLSun_85ZntENUfF4w45OE'
 
 function _generateRandomString() {
@@ -6,6 +8,10 @@ function _generateRandomString() {
 
 function _getInput() {
   return document.getElementById('search');
+}
+
+function getSearchText() {
+  return document.getElementById('search').value;
 }
 
 function jsonp(url, cb) {
@@ -18,21 +24,6 @@ function jsonp(url, cb) {
   var script = document.createElement('script')
   script.src = url + '&callback=' + cbName
   document.body.appendChild(script)
-}
-
-function initMap () {
-  var uluru = { lat: 32.0853, lng: 34.7818 }
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 4,
-    center: uluru
-  });
-  var input = _getInput();
-  map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
-
-  var marker = new google.maps.Marker({
-    position: uluru,
-    map: map
-  })
 }
 
 /**
@@ -103,5 +94,34 @@ function downloadPlaces(cb) {
     return objects;
   }
 }
+var geocoder
+jsonp('https://maps.googleapis.com/maps/api/js?libraries=places&key=' + KEY, function initMap () {
+  // init map
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 12,
+    center: { lat: 32.071127, lng: 34.776744 }
+  });
+  var input = _getInput();
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
 
-jsonp('https://maps.googleapis.com/maps/api/js?libraries=places&key=' + KEY, initMap);
+  geocoder = new google.maps.Geocoder()
+
+  // get the places where things happened from the "backend" (excel file)
+  downloadPlaces(function findAddresses(err, data) {
+    data.forEach(function processEachMaavak(datum, index) {
+      var address = datum.address;
+      var name = datum.name;
+      // get the latitude-longitutde for each address, because thats the format 
+      // new Marker wants it in
+      geocoder.geocode({ address }, function (results, status) {
+        if (status == 'OK') {
+          var result = results[0];
+          var position = result.geometry.location;
+          var marker = new google.maps.Marker({ map: map, position: position });
+        } else {
+          console.warn('Error :(')
+        }
+      });
+    });
+  });
+});
