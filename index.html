@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="cooperative management for municipal protests in israel">
   <title>People For Cities - Open Information HaSadna</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
@@ -53,7 +54,7 @@
   <script type="text/template" id="sidebartemplate">
     <li class="realHead">
       <div class="headText">
-        <div class="header">{{name}}</div>
+        <div class="header">מאבק הרכבת</div>
         <div class="selectedAddress">{{address}}</div>
       </div>
       <div class="headImg">
@@ -61,13 +62,13 @@
       </div>
     </li>
     <li><a class="subheader">סטטוס</a></li>
-    <li class="status"><b>עובדים על זה.</b></li>
+    <li class="status">{{status}}</li>
     <li><a class="subheader">תיאור</a></li>
     <li class="description">{{description}}</li>
     <li><a class="subheader">טענות</a></li>
-    <li class="description">{{mainClaims}} </li>
+    <li class="description">{{claims}} </li>
   </script>
-  <script>window.SAMPLE_DATA = [{"dateAdded":null,"name":"משטרת הגקוזי","sector":"הפרטת שטחי ציבור","description":"מאבק כנגד בקשת יזם פרטי לשינוי ייעוד מבנה המיועד למוסדות חינוך וקהילה ברחוב יהודה הלוי 74, תל אביב לטובת שימוש משטרתי.\n","mainClaims":"1. הבניין לא מיועד ע\"פ התב\"ע ועל פי התנאים הפיזיים (תחבורה, עיצוב אדריכלי) לשמש כתחנת משטרה גדולה. \n2. העירייה חוייבה בתב\"ע להפקיע את המבנה אך נמנעת מלעשות זאת, למרות שהיא מודה שבאזור מחסור חמור בשטחי ציבור בדגש על שטחי חינוך וקהילה.  \n3. נפלו פגמים מינהליים חמורים בהליך התכנוני ובהליך ההתקשרות עם היזם. הראשון שבהם – היזם קובע הלכה למעשה את פריסת המשטרה בעיר. ","address":"יהודה הלוי 74, תל אביב","emailAddress":"","facebookGroup":"https://www.facebook.com/kiryatseferVolunteercommunity/","otherLinks":""}];</script>
-  <script src="script.js"></script>
+  <script src="script.js">  </script>
 </body>
+
 </html>
