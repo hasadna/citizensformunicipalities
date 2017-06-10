@@ -1,38 +1,38 @@
-var KEY = 'AIzaSyBurnP2Y9-YavLSun_85ZntENUfF4w45OE'
+var KEY = 'AIzaSyBurnP2Y9-YavLSun_85ZntENUfF4w45OE';
 
-function _generateRandomString () {
-  return Math.random().toString(36).substring(2)
+function _generateRandomString() {
+  return Math.random().toString(36).substring(2);
 }
 
-function _getInput () {
-  return document.getElementById('search')
+function _getInput() {
+  return document.getElementById('search');
 }
 
-function jsonp (url, cb) {
-  var cbName = _generateRandomString()
+function jsonp(url, cb) {
+  var cbName = _generateRandomString();
   window[cbName] = function () {
-    cb()
-    delete window[cbName]
+    cb();
+    delete window[cbName];
   }
 
-  var script = document.createElement('script')
-  script.src = url + '&callback=' + cbName
-  document.body.appendChild(script)
+  var script = document.createElement('script');
+  script.src = url + '&callback=' + cbName;
+  document.body.appendChild(script);
 }
 
-function initMap () {
-  var uluru = { lat: 32.0853, lng: 34.7818 }
+function initMap() {
+  var uluru = { lat: 32.0853, lng: 34.7818 };
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 4,
     center: uluru
-  })
-  var input = _getInput()
-  map.controls[google.maps.ControlPosition.TOP_CENTER].push(input)
+  });
+  var input = _getInput();
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
 
   var marker = new google.maps.Marker({
     position: uluru,
     map: map
-  })
+  });
 }
 
 /**
@@ -41,7 +41,7 @@ function initMap () {
  * @param {string} template 
  * @param {object} obj
  */
-function render (templateString, obj) {
+function render(templateString, obj) {
   var entityMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -51,45 +51,46 @@ function render (templateString, obj) {
     '/': '&#x2F;',
     '`': '&#x60;',
     '=': '&#x3D;'
-  }
+  };
   return templateString.replace(/{{.+}}/g, function (found) {
-    var content = obj[found.replace('{{', '').replace('}}', '')]
+    var content = obj[found.replace('{{', '').replace('}}', '')];
     for (var el in entityMap) {
-      content = content.replace(new RegExp(el, 'g'), entityMap[el])
+      content = content.replace(new RegExp(el, 'g'), entityMap[el]);
     }
-    return content
+    return content;
   })
 }
 
-var template = document.getElementById('sidebartemplate').innerHTML
+var template = document.getElementById('sidebartemplate').innerHTML;
 var tempData = {
   address: 'החשמונאים 29, תל אביב',
-  status: 'פעיל',
-  description: 'בניין מדהים',
-  claims: 'הבניין הכי טוב אי פעם'
-}
+  status: 'משא ומתן עם גורמים בעירייה',
+  description: 'אנחנו מאוד מקווים שגל יסלח לענבלי על כך שכמעט הזמינו לו משטרה הביתה כי היא צרחה כמו משוגעת.',
+  claims: 'יש כאן טענה שענבל צרחה עד שהמשטרה באה.'
+};
 $(".button-collapse").sideNav();
-function renderSideBar (data) {
-  var rendered = render(template, data)
-  $('#slide-out').html(rendered)
-  $('.button-collapse').click()
+function renderSideBar(data) {
+  var rendered = render(template, data);
+  $('#slide-out').html(rendered);
+  $('.button-collapse').click();
 }
+
 renderSideBar(tempData);
 
-function downloadPlaces (cb) {
-  var xhr = new XMLHttpRequest
-  xhr.open('GET', 'http://cfm-csv-proxy.hstatic.org')
+function downloadPlaces(cb) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'http://cfm-csv-proxy.hstatic.org');
   xhr.onload = function (e) {
-    cb(null, parse(xhr.responseText))
+    cb(null, parse(xhr.responseText));
   }
   xhr.onerror = function (e) {
     var err = new Error('Unable to download CSV')
-    err.data = e
-    cb(err)
+    err.data = e;
+    cb(err);
   }
-  xhr.send()
-  function parse (text) {
-    var csv = Papa.parse(text).data.slice(1)
+  xhr.send();
+  function parse(text) {
+    var csv = Papa.parse(text).data.slice(1);
     var objects = csv.slice(1).map(function (arr) {
       return {
         dateAdded: new Date(arr[0]),
@@ -103,15 +104,15 @@ function downloadPlaces (cb) {
         otherLinks: arr[8]
       }
     })
-    return objects
+    return objects;
   }
 }
 
-function howToSubmit () {
-  $('#how-to-submit').modal()
+function howToSubmit() {
+  $('#how-to-submit').modal();
   $.get('how-to-submit.html').then(function (content) {
-    $('#how-to-submit .content').html(content)
-    $('#how-to-submit').modal('open')
+    $('#how-to-submit .content').html(content);
+    $('#how-to-submit').modal('open');
   })
-}
-jsonp('https://maps.googleapis.com/maps/api/js?libraries=places&key=' + KEY, initMap)
+};
+jsonp('https://maps.googleapis.com/maps/api/js?libraries=places&key=' + KEY, initMap);
