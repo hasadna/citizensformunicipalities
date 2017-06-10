@@ -161,7 +161,7 @@ jsonp('https://maps.googleapis.com/maps/api/js?libraries=places&key=' + KEY, fun
         if (status == 'OK') {
           var result = results[0];
           var position = result.geometry.location;
-          var marker = new google.maps.Marker({ map: map, position: position, icon: "/props/unselectedMarker.png" });
+          var marker = new google.maps.Marker({ map: map, position: position, icon: "./props/unselectedMarker.png" });
           marker.addListener('click', function handleClick() {
             renderSideBar(datum);
           });
