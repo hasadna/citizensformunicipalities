@@ -18,9 +18,7 @@
 <body>
   <div id="sidebar">
     <ul id="slide-out" class="side-nav"></ul>
-    <a href="#" data-activates="slide-out" class="button-collapse">
-      <i class="material-icons">menu</i>
-      </a>
+    <a href="#" data-activates="slide-out" class="button-collapse"></a>
   </div>
   <form id="search">
     <input id="pac-input" class="controls" type="text" placeholder="חיפוש">
@@ -40,22 +38,23 @@
           
 
   <script type="text/template" id="sidebartemplate">
-    <li>
-      <a class="header">מאבק הרכבת</a>
+    <li class="realHead">
+      <div class="headText">
+        <div class="header">{{name}}</div>
+        <div class="selectedAddress">{{address}}</div>
+      </div>
+      <div class="headImg">
+        <img src="props/eventIcon.png" style="max-width:50px;" />
+      </div>
     </li>
-    <li class="selectedAddress">{{address}}</li>
     <li><a class="subheader">סטטוס</a></li>
-    <li class="status">{{status}}</li>
+    <li class="status"><b>עובדים על זה.</b></li>
     <li><a class="subheader">תיאור</a></li>
     <li class="description">{{description}}</li>
     <li><a class="subheader">טענות</a></li>
-    <li class="description">{{claims}} </li>
+    <li class="description">{{mainClaims}} </li>
   </script>
+  <script>window.SAMPLE_DATA = [{"dateAdded":null,"name":"משטרת הגקוזי","sector":"הפרטת שטחי ציבור","description":"מאבק כנגד בקשת יזם פרטי לשינוי ייעוד מבנה המיועד למוסדות חינוך וקהילה ברחוב יהודה הלוי 74, תל אביב לטובת שימוש משטרתי.\n","mainClaims":"1. הבניין לא מיועד ע\"פ התב\"ע ועל פי התנאים הפיזיים (תחבורה, עיצוב אדריכלי) לשמש כתחנת משטרה גדולה. \n2. העירייה חוייבה בתב\"ע להפקיע את המבנה אך נמנעת מלעשות זאת, למרות שהיא מודה שבאזור מחסור חמור בשטחי ציבור בדגש על שטחי חינוך וקהילה.  \n3. נפלו פגמים מינהליים חמורים בהליך התכנוני ובהליך ההתקשרות עם היזם. הראשון שבהם – היזם קובע הלכה למעשה את פריסת המשטרה בעיר. ","address":"יהודה הלוי 74, תל אביב","emailAddress":"","facebookGroup":"https://www.facebook.com/kiryatseferVolunteercommunity/","otherLinks":""}];</script>
   <script src="script.js"></script>
-  <script>
-    $(".button-collapse").sideNav();
-    $(".button-collapse").click()
-  </script>
 </body>
-
 </html>

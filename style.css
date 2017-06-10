@@ -10,7 +10,7 @@ html {
 }
 #map {
   position: absolute;
-  top: 20px;
+  top: 0;
   bottom: 0;
   right: 0;
   left: 0;
@@ -18,11 +18,6 @@ html {
 
 #sidebar li{
   text-align:right;
-}
-
-#sidebar li .header{
-  text-align:center;
-  background-color:lightgrey;
 }
 
 #sidebar li .subheader{
@@ -46,4 +41,44 @@ html {
   background: hsl(173, 86%, 65%);
   background: linear-gradient(90deg, hsl(173, 86%, 65%), hsl(173, 86%, 65%) 85%, hsl(173, 86%, 25%));
   border: 0;
+}
+
+
+.realHead {
+  min-height:80px;
+  background-color:#1ccfb9;
+  font-size:35px;
+  color:white;
+  font-family: arial;
+  font-weight: lighter;
+  padding-top:10px;
+  padding-bottom:20px;
+}
+
+.headText {
+  padding-top: 0 15px 10px 0;
+  line-height:1.2;
+}
+.realHead .headText {
+  padding-right:15px;
+}
+.headText,.headImg {
+  display:inline-block;
+}
+.realHead .headText {
+  width:75%;
+}
+
+.realHead .selectedAddress {
+  font-size:15px;
+}
+.realHead .headImg {
+  min-width:15%;
+}
+.headImg {
+  text-align:right;
+}
+li.description {
+  line-height: 20px;
+  padding: 15px 8px;
 }
