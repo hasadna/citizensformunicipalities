@@ -85,7 +85,7 @@ html {
 }
 
 .blueAction:hover {
-  background-color: #b3e5fc;
+  background-color: #81d4fa;
 }
 
 .blueAction {
@@ -93,7 +93,7 @@ html {
 }
 
 .cyanAction:hover {
-  background-color: #b2ebf2;
+  background-color: #80deea;
 }
 
 .cyanAction {
@@ -105,7 +105,7 @@ html {
 }
 
 .greenAction {
-  background-color: #26a69a;
+  background-color: #80cbc4;
 }
 
 .citizenAction {
@@ -116,12 +116,13 @@ html {
   display: inline-block;
   border-radius: 5px;
   padding-right:15px;  
-  font-size:15px;
+  font-size:17px;
+  transition: all 0.15s linear;   
 }
 
-.citizenAction:hover {
+/*.citizenAction:hover {
   color: black;
-}
+}*/
 
 #sidebar .side-nav .content {
   padding-right:15px;
