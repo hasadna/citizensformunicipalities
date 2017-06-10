@@ -1,6 +1,10 @@
+var KEY = 'AIzaSyBurnP2Y9-YavLSun_85ZntENUfF4w45OE'; // only works on production domains
 // use these for the labels numbering
 var hebrewLetters = 'אבגדהוזחטיכלמנסעפצקרשת';
-var KEY = 'AIzaSyBurnP2Y9-YavLSun_85ZntENUfF4w45OE'
+
+if(location.hostname.indexOf("localhost") > -1) { // development key
+  KEY = "AIzaSyAvH9YqCyrBQoZeXlfNnYDRpngdwYmZEnw";
+}
 
 function _generateRandomString() {
   return Math.random().toString(36).substring(2);
