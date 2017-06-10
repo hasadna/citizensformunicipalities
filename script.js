@@ -1,18 +1,18 @@
 var KEY = 'AIzaSyBurnP2Y9-YavLSun_85ZntENUfF4w45OE'
 
-function _generateRandomString() {
-  return Math.random().toString(36).substring(2);
+function _generateRandomString () {
+  return Math.random().toString(36).substring(2)
 }
 
-function _getInput() {
-  return document.getElementById('search');
+function _getInput () {
+  return document.getElementById('search')
 }
 
-function jsonp(url, cb) {
-  var cbName = _generateRandomString();
+function jsonp (url, cb) {
+  var cbName = _generateRandomString()
   window[cbName] = function () {
-    cb();
-    delete window[cbName];
+    cb()
+    delete window[cbName]
   }
 
   var script = document.createElement('script')
@@ -25,9 +25,9 @@ function initMap () {
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 4,
     center: uluru
-  });
-  var input = _getInput();
-  map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+  })
+  var input = _getInput()
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(input)
 
   var marker = new google.maps.Marker({
     position: uluru,
@@ -58,36 +58,39 @@ function render (templateString, obj) {
       content = content.replace(new RegExp(el, 'g'), entityMap[el])
     }
     return content
-  });
+  })
 }
 
 var template = document.getElementById('sidebartemplate').innerHTML
 var tempData = {
-  address: 'החשמונאים 29',
+  address: 'החשמונאים 29, תל אביב',
   status: 'פעיל',
   description: 'בניין מדהים',
   claims: 'הבניין הכי טוב אי פעם'
 }
+$(".button-collapse").sideNav();
+function renderSideBar (data) {
+  var rendered = render(template, data)
+  $('#slide-out').html(rendered)
+  $('.button-collapse').click()
+}
+renderSideBar(tempData);
 
-var rendered = render(template, tempData);
-$('#slide-out').html(rendered);
-
-
-function downloadPlaces(cb) {
-  var xhr = new XMLHttpRequest;
-  xhr.open("GET", "http://cfm-csv-proxy.hstatic.org");
-  xhr.onload = function(e) {
-    cb(null, parse(xhr.responseText));
-  };
-  xhr.onerror = function(e) {
-    var err = new Error("Unable to download CSV");
-    err.data = e;
-    cb(err) 
-  };
-  xhr.send();
-  function parse(text) {
-    var csv = Papa.parse(text).data.slice(1);
-    var objects = csv.slice(1).map(function(arr) {
+function downloadPlaces (cb) {
+  var xhr = new XMLHttpRequest
+  xhr.open('GET', 'http://cfm-csv-proxy.hstatic.org')
+  xhr.onload = function (e) {
+    cb(null, parse(xhr.responseText))
+  }
+  xhr.onerror = function (e) {
+    var err = new Error('Unable to download CSV')
+    err.data = e
+    cb(err)
+  }
+  xhr.send()
+  function parse (text) {
+    var csv = Papa.parse(text).data.slice(1)
+    var objects = csv.slice(1).map(function (arr) {
       return {
         dateAdded: new Date(arr[0]),
         name: arr[1],
@@ -97,18 +100,18 @@ function downloadPlaces(cb) {
         address: arr[5],
         emailAddress: arr[6],
         facebookGroup: arr[7],
-        otherLinks: arr[8],
-      };
-    });
-    return objects;
+        otherLinks: arr[8]
+      }
+    })
+    return objects
   }
 }
 
-function howToSubmit() {
-  $('#how-to-submit').modal();
-  $.get("how-to-submit.html").then(function(content) {
-    $("#how-to-submit .content").html(content);
-    $('#how-to-submit').modal('open');
-  });
+function howToSubmit () {
+  $('#how-to-submit').modal()
+  $.get('how-to-submit.html').then(function (content) {
+    $('#how-to-submit .content').html(content)
+    $('#how-to-submit').modal('open')
+  })
 }
-jsonp('https://maps.googleapis.com/maps/api/js?libraries=places&key=' + KEY, initMap);
+jsonp('https://maps.googleapis.com/maps/api/js?libraries=places&key=' + KEY, initMap)
