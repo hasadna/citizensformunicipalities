@@ -87,7 +87,7 @@ function downloadPlaces(cb) {
         name: arr[1],
         sector: arr[2],
         description: arr[3],
-        mainClaims: arr[4],
+        mainClaims: arr[4],        
         address: arr[5],
         emailAddress: arr[6],
         facebookGroup: arr[7],
@@ -124,7 +124,7 @@ jsonp('https://maps.googleapis.com/maps/api/js?libraries=places&key=' + KEY, fun
         if (status == 'OK') {
           var result = results[0];
           var position = result.geometry.location;
-          var marker = new google.maps.Marker({ map: map, position: position });
+          var marker = new google.maps.Marker({ map: map, position: position, icon: "/props/unselectedMarker.png" });
           marker.addListener('click', function handleClick() {
             renderSideBar(datum);
           });
