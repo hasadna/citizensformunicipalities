@@ -1,13 +1,17 @@
+var KEY = 'AIzaSyBurnP2Y9-YavLSun_85ZntENUfF4w45OE'; // only works on production domains
 // use these for the labels numbering
 var hebrewLetters = 'אבגדהוזחטיכלמנסעפצקרשת';
-var KEY = 'AIzaSyBurnP2Y9-YavLSun_85ZntENUfF4w45OE'
 
-function _generateRandomString () {
-  return Math.random().toString(36).substring(2)
+if(location.hostname.indexOf("localhost") > -1) { // development key
+  KEY = "AIzaSyAvH9YqCyrBQoZeXlfNnYDRpngdwYmZEnw";
 }
 
-function _getInput () {
-  return document.getElementById('search')
+function _generateRandomString() {
+  return Math.random().toString(36).substring(2);
+}
+
+function _getInput() {
+  return document.getElementById('search');
 }
 
 function getSearchText() {
@@ -17,13 +21,13 @@ function getSearchText() {
 function jsonp(url, cb) {
   var cbName = _generateRandomString();
   window[cbName] = function () {
-    cb()
-    delete window[cbName]
+    cb();
+    delete window[cbName];
   }
 
-  var script = document.createElement('script')
-  script.src = url + '&callback=' + cbName
-  document.body.appendChild(script)
+  var script = document.createElement('script');
+  script.src = url + '&callback=' + cbName;
+  document.body.appendChild(script);
 }
 
 /**
@@ -32,7 +36,7 @@ function jsonp(url, cb) {
  * @param {string} template 
  * @param {object} obj
  */
-function render (templateString, obj) {
+function render(templateString, obj) {
   var entityMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -42,13 +46,13 @@ function render (templateString, obj) {
     '/': '&#x2F;',
     '`': '&#x60;',
     '=': '&#x3D;'
-  }
+  };
   return templateString.replace(/{{.+}}/g, function (found) {
-    var content = obj[found.replace('{{', '').replace('}}', '')]
+    var content = obj[found.replace('{{', '').replace('}}', '')];
     for (var el in entityMap) {
-      content = content.replace(new RegExp(el, 'g'), entityMap[el])
+      content = content.replace(new RegExp(el, 'g'), entityMap[el]);
     }
-    return content
+    return content;
   })
 }
 
@@ -67,16 +71,16 @@ function downloadPlaces (cb) {
   var xhr = new XMLHttpRequest
   xhr.open('GET', 'http://cfm-csv-proxy.hstatic.org')
   xhr.onload = function (e) {
-    cb(null, parse(xhr.responseText))
+    cb(null, parse(xhr.responseText));
   }
   xhr.onerror = function (e) {
     var err = new Error('Unable to download CSV')
-    err.data = e
-    cb(err)
+    err.data = e;
+    cb(err);
   }
-  xhr.send()
-  function parse (text) {
-    var csv = Papa.parse(text).data.slice(1)
+  xhr.send();
+  function parse(text) {
+    var csv = Papa.parse(text).data.slice(1);
     var objects = csv.slice(1).map(function (arr) {
       return {
         dateAdded: new Date(arr[0]),
@@ -90,7 +94,7 @@ function downloadPlaces (cb) {
         otherLinks: arr[8]
       }
     })
-    return objects
+    return objects;
   }
 }
 
@@ -134,7 +138,7 @@ jsonp('https://maps.googleapis.com/maps/api/js?libraries=places&key=' + KEY, fun
 function howToSubmit () {
   $('#how-to-submit').modal()
   $.get('how-to-submit.html').then(function (content) {
-    $('#how-to-submit .content').html(content)
-    $('#how-to-submit').modal('open')
+    $('#how-to-submit .content').html(content);
+    $('#how-to-submit').modal('open');
   })
 }
