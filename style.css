@@ -35,11 +35,11 @@ html {
   padding: 0 5px;
 }
 #search button {
-  width: 3em;
+  width: 4em;
   height: 3em;
   font-size: 1rem;
   background: hsl(173, 86%, 65%);
-  background: linear-gradient(90deg, hsl(173, 86%, 65%), hsl(173, 86%, 65%) 85%, hsl(173, 86%, 25%));
+  /*background: linear-gradient(90deg, hsl(173, 86%, 65%), hsl(173, 86%, 65%) 85%, hsl(173, 86%, 25%));*/
   border: 0;
 }
 
