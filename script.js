@@ -2,7 +2,7 @@ var KEY = 'AIzaSyBurnP2Y9-YavLSun_85ZntENUfF4w45OE'; // only works on production
 // use these for the labels numbering
 var hebrewLetters = 'אבגדהוזחטיכלמנסעפצקרשת';
 
-if(location.hostname.indexOf("localhost") > -1) { // development key
+if (location.hostname.indexOf("localhost") > -1) { // development key
   KEY = "AIzaSyAvH9YqCyrBQoZeXlfNnYDRpngdwYmZEnw";
 }
 
@@ -47,7 +47,7 @@ function render(templateString, obj) {
     '`': '&#x60;',
     '=': '&#x3D;'
   };
-  return templateString.replace(/{{.+}}/g, function (found) {
+  return templateString.replace(/{{.+?}}/g, function (found) {
     var content = obj[found.replace('{{', '').replace('}}', '')];
     for (var el in entityMap) {
       content = content.replace(new RegExp(el, 'g'), entityMap[el]);
@@ -59,14 +59,14 @@ function render(templateString, obj) {
 var template = document.getElementById('sidebartemplate').innerHTML
 
 
-function renderSideBar (data) {
+function renderSideBar(data) {
   var rendered = render(template, data)
   $('#slide-out').html(rendered)
   $('.button-collapse').click()
 }
 
-function downloadPlaces (cb) {
-  if(window.SAMPLE_DATA) cb(null, window.SAMPLE_DATA)
+function downloadPlaces(cb) {
+  if (window.SAMPLE_DATA) cb(null, window.SAMPLE_DATA)
 
   var xhr = new XMLHttpRequest
   xhr.open('GET', 'http://cfm-csv-proxy.hstatic.org')
@@ -91,7 +91,9 @@ function downloadPlaces (cb) {
         address: arr[5],
         emailAddress: arr[6],
         facebookGroup: arr[7],
-        otherLinks: arr[8]
+        facebookExists: Boolean(arr[7]) ? "showComponent" : "dontShowComponent",
+        otherLinks: arr[8],
+        otherLinksExists: Boolean(arr[8]) ? "showComponent" : "dontShowComponent",
       }
     })
     return objects;
@@ -100,7 +102,7 @@ function downloadPlaces (cb) {
 
 $(".button-collapse").sideNav();
 var geocoder;
-jsonp('https://maps.googleapis.com/maps/api/js?libraries=places&key=' + KEY, function initMap () {
+jsonp('https://maps.googleapis.com/maps/api/js?libraries=places&key=' + KEY, function initMap() {
   // init map
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
@@ -113,7 +115,6 @@ jsonp('https://maps.googleapis.com/maps/api/js?libraries=places&key=' + KEY, fun
 
   // get the places where things happened from the "backend" (excel file)
   downloadPlaces(function findAddresses(err, data) {
-    console.log('le data', data)
     data.forEach(function processEachMaavak(datum, index) {
       var address = datum.address;
       var name = datum.name;
@@ -135,7 +136,7 @@ jsonp('https://maps.googleapis.com/maps/api/js?libraries=places&key=' + KEY, fun
   });
 });
 
-function howToSubmit () {
+function howToSubmit() {
   $('#how-to-submit').modal()
   $.get('how-to-submit.html').then(function (content) {
     $('#how-to-submit .content').html(content);

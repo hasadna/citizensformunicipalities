@@ -96,15 +96,32 @@ html {
   width:150px;
   height:40px;
   border-radius:15px;
-  color:white;
   font-size:15px;
+  color:white;
   border:0;
 }
-
-#sidebar .side-nav li.buttonContainer {
-  text-align:center;
+.dontShowComponent {
+  display:none;
+}
+#sidebar .side-nav .buttonContainer a {
+  display: flex;
+  align-items: center;
+  margin:auto;  
+  margin-bottom:10px;
+  justify-content: center;
 }
 li.description {
   line-height: 20px;
   padding: 15px 8px;
+}
+
+#sidebar .side-nav .otherJoinButton {
+  text-align:center;
+  background-color:#1ccfb9;
+  width:150px;
+  height:40px;
+  border-radius:15px;
+  color:white;
+  font-size:15px;
+  border:0;
 }
