@@ -109,8 +109,8 @@ function downloadPlaces(cb) {
         emailAddress: arr[6],
         facebookGroup: arr[7],
         facebookExists: Boolean(arr[7]) ? "showComponent" : "dontShowComponent",
-        otherLinks: arr[7],
-        otherLinksExists: Boolean(arr[7]) ? "showComponent" : "dontShowComponent",
+        otherLinks: arr[8],
+        otherLinksExists: Boolean(arr[8]) ? "showComponent" : "dontShowComponent",
       }
     })
     return objects;
@@ -161,7 +161,7 @@ jsonp('https://maps.googleapis.com/maps/api/js?libraries=places&key=' + KEY, fun
         if (status == 'OK') {
           var result = results[0];
           var position = result.geometry.location;
-          var marker = new google.maps.Marker({ map: map, position: position, icon: "/props/unselectedMarker.png" });
+          var marker = new google.maps.Marker({ map: map, position: position, icon: "./props/unselectedMarker.png" });
           marker.addListener('click', function handleClick() {
             renderSideBar(datum);
           });

@@ -132,7 +132,7 @@ html {
   padding-left: 20px;
   margin-bottom:10px;
 }
-#sidebar .side-nav .joinButton {
+#sidebar .side-nav .joinButton, #sidebar .side-nav  .otherJoinButton {
   text-align:center;
   background-color:#ee3840;
   width:170px;
@@ -142,6 +142,10 @@ html {
   color:white;
   border:0;
 }
+#sidebar .side-nav .otherJoinButton {
+  background-color:#1ccfb9;
+}
+
 .dontShowComponent {
   display:none;
 }
@@ -166,14 +170,3 @@ li.description {
 .search-results a:hover {
   background-color: lightgrey;
 
-#sidebar .side-nav .otherJoinButton {
-  text-align:center;
-  background-color:#1ccfb9;
-  width:170px;
-  height:40px;
-  line-height: 40px;
-  border-radius:15px;
-  color:white;
-  font-size:15px;
-  border:0;
-}
