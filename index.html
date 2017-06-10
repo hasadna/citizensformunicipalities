@@ -20,12 +20,25 @@
     <ul id="slide-out" class="side-nav"></ul>
     <a href="#" data-activates="slide-out" class="button-collapse"></a>
   </div>
+
+  <div class="fixed-action-btn">
+    <a class="btn-floating btn-large red">
+      <i class="large material-icons">mode_edit</i>
+    </a>
+    <ul>
+      <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
+      <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
+      <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
+      <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+    </ul>
+  </div>
+
   <form id="search">
     <input id="pac-input" class="controls" type="text" placeholder="חיפוש">
     <button><i class="material-icons">search</i></button>
   </form>
   <div id="map"></div>
-  
+
   <div id="how-to-submit" class="modal">
     <div class="modal-content">
       <h4>איך להגיש התנגדות?</h4>
@@ -35,27 +48,30 @@
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">סגור</a>
     </div>
   </div>
-          
+
 
   <script type="text/template" id="sidebartemplate">
     <li class="realHead">
       <div class="headText">
-        <div class="header">מאבק הרכבת</div>
+        <div class="header">{{name}}</div>
         <div class="selectedAddress">{{address}}</div>
       </div>
       <div class="headImg">
         <img src="props/eventIcon.png" style="max-width:50px;" />
       </div>
     </li>
-    <li><span class="minorHeader">סטטוס</span></li>
-    <li class="content">{{status}}</li>
-    <li><span class="minorHeader">תיאור</span></li>
+    <li><a class="minorHeader">סטטוס</a></li>
+    <li class="content"><b>עובדים על זה.</b></li>
+    <li><a class="minorHeader">תיאור</a></li>
     <li class="content">{{description}}</li>
-    <li><span class="minorHeader">טענות</span></li>
-    <li class="content">{{claims}} </li>
+    <li><a class="minorHeader">טענות</a></li>
+    <li class="content">{{mainClaims}} </li>
     <li class="buttonContainer"><button class="joinButton">הצטרף למאבק</button></li>
   </script>
-  <script src="script.js">  </script>
+  <script>
+    window.SAMPLE_DATA = [{ "dateAdded": null, "name": "משטרת הגקוזי", "sector": "הפרטת שטחי ציבור", "description": "מאבק כנגד בקשת יזם פרטי לשינוי ייעוד מבנה המיועד למוסדות חינוך וקהילה ברחוב יהודה הלוי 74, תל אביב לטובת שימוש משטרתי.\n", "mainClaims": "1. הבניין לא מיועד ע\"פ התב\"ע ועל פי התנאים הפיזיים (תחבורה, עיצוב אדריכלי) לשמש כתחנת משטרה גדולה. \n2. העירייה חוייבה בתב\"ע להפקיע את המבנה אך נמנעת מלעשות זאת, למרות שהיא מודה שבאזור מחסור חמור בשטחי ציבור בדגש על שטחי חינוך וקהילה.  \n3. נפלו פגמים מינהליים חמורים בהליך התכנוני ובהליך ההתקשרות עם היזם. הראשון שבהם – היזם קובע הלכה למעשה את פריסת המשטרה בעיר. ", "address": "יהודה הלוי 74, תל אביב", "emailAddress": "", "facebookGroup": "https://www.facebook.com/kiryatseferVolunteercommunity/", "otherLinks": "" }];
+  </script>
+  <script src="script.js"></script>
 </body>
 
 </html>

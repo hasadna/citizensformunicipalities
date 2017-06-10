@@ -1,4 +1,6 @@
-var KEY = 'AIzaSyBurnP2Y9-YavLSun_85ZntENUfF4w45OE';
+// use these for the labels numbering
+var hebrewLetters = 'אבגדהוזחטיכלמנסעפצקרשת';
+var KEY = 'AIzaSyBurnP2Y9-YavLSun_85ZntENUfF4w45OE'
 
 function _generateRandomString() {
   return Math.random().toString(36).substring(2);
@@ -6,6 +8,10 @@ function _generateRandomString() {
 
 function _getInput() {
   return document.getElementById('search');
+}
+
+function getSearchText() {
+  return document.getElementById('search').value;
 }
 
 function jsonp(url, cb) {
@@ -18,21 +24,6 @@ function jsonp(url, cb) {
   var script = document.createElement('script');
   script.src = url + '&callback=' + cbName;
   document.body.appendChild(script);
-}
-
-function initMap() {
-  var uluru = { lat: 32.0853, lng: 34.7818 };
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 4,
-    center: uluru
-  });
-  var input = _getInput();
-  map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
-
-  var marker = new google.maps.Marker({
-    position: uluru,
-    map: map
-  });
 }
 
 /**
@@ -61,25 +52,20 @@ function render(templateString, obj) {
   })
 }
 
-var template = document.getElementById('sidebartemplate').innerHTML;
-var tempData = {
-  address: 'החשמונאים 29, תל אביב',
-  status: 'משא ומתן עם גורמים בעירייה',
-  description: 'אנחנו מאוד מקווים שגל יסלח לענבלי על כך שכמעט הזמינו לו משטרה הביתה כי היא צרחה כמו משוגעת.',
-  claims: 'יש כאן טענה שענבל צרחה עד שהמשטרה באה.'
-};
-$(".button-collapse").sideNav();
-function renderSideBar(data) {
-  var rendered = render(template, data);
-  $('#slide-out').html(rendered);
-  $('.button-collapse').click();
+var template = document.getElementById('sidebartemplate').innerHTML
+
+
+function renderSideBar (data) {
+  var rendered = render(template, data)
+  $('#slide-out').html(rendered)
+  $('.button-collapse').click()
 }
 
-renderSideBar(tempData);
+function downloadPlaces (cb) {
+  if(window.SAMPLE_DATA) cb(null, window.SAMPLE_DATA)
 
-function downloadPlaces(cb) {
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'http://cfm-csv-proxy.hstatic.org');
+  var xhr = new XMLHttpRequest
+  xhr.open('GET', 'http://cfm-csv-proxy.hstatic.org')
   xhr.onload = function (e) {
     cb(null, parse(xhr.responseText));
   }
@@ -108,11 +94,47 @@ function downloadPlaces(cb) {
   }
 }
 
-function howToSubmit() {
-  $('#how-to-submit').modal();
+$(".button-collapse").sideNav();
+var geocoder;
+jsonp('https://maps.googleapis.com/maps/api/js?libraries=places&key=' + KEY, function initMap () {
+  // init map
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 12,
+    center: { lat: 32.071127, lng: 34.776744 }
+  });
+  var input = _getInput();
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
+
+  geocoder = new google.maps.Geocoder();
+
+  // get the places where things happened from the "backend" (excel file)
+  downloadPlaces(function findAddresses(err, data) {
+    console.log('le data', data)
+    data.forEach(function processEachMaavak(datum, index) {
+      var address = datum.address;
+      var name = datum.name;
+      // get the latitude-longitutde for each address, because thats the format 
+      // new Marker wants it in
+      geocoder.geocode({ address }, function (results, status) {
+        if (status == 'OK') {
+          var result = results[0];
+          var position = result.geometry.location;
+          var marker = new google.maps.Marker({ map: map, position: position });
+          marker.addListener('click', function handleClick() {
+            renderSideBar(datum);
+          });
+        } else {
+          console.warn('Error :(')
+        }
+      });
+    });
+  });
+});
+
+function howToSubmit () {
+  $('#how-to-submit').modal()
   $.get('how-to-submit.html').then(function (content) {
     $('#how-to-submit .content').html(content);
     $('#how-to-submit').modal('open');
   })
-};
-jsonp('https://maps.googleapis.com/maps/api/js?libraries=places&key=' + KEY, initMap);
+}
