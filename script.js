@@ -85,7 +85,7 @@ function renderSearchResults(data) {
 function downloadPlaces(cb) {
   if (window.SAMPLE_DATA) cb(null, window.SAMPLE_DATA)
   var xhr = new XMLHttpRequest
-  xhr.open('GET', 'http://cfm-csv-proxy.hstatic.org')
+  xhr.open('GET', '//cfm-csv-proxy.hstatic.org')
   xhr.onload = function (e) {
     cb(null, parse(xhr.responseText));
   }
