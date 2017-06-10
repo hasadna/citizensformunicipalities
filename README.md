@@ -21,3 +21,7 @@ The code uses Materialize as a CSS framework and Google Maps API for maps.
 Auditing data is managed by [Hasadna](https://github.com/hasadna) and Eyal in particular. If you notice a data issue - please open an issue.
 
 The data itself is hosted on a Google Spreadsheet and is proxied by Hasadna's nginx is managing the authorization. The Python code can be found in `/server.js`.
+
+### Maintenance manual
+
+https://docs.google.com/document/d/1Rl3bJOHu2QZP0oY685V1Kf3TNvRhMSwaRyCR_LWAO9Q/edit?usp=sharing

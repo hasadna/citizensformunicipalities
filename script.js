@@ -104,4 +104,11 @@ function downloadPlaces(cb) {
   }
 }
 
+function howToSubmit() {
+  $('#how-to-submit').modal();
+  $.get("how-to-submit.html").then(function(content) {
+    $("#how-to-submit .content").html(content);
+    $('#how-to-submit').modal('open');
+  });
+}
 jsonp('https://maps.googleapis.com/maps/api/js?libraries=places&key=' + KEY, initMap);
