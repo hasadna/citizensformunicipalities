@@ -20,11 +20,6 @@ html {
   text-align:right;
 }
 
-#sidebar li .subheader{
-  text-align:center;
-  background-color:ghostwhite;
-}
-
 #search {
   width: 40%;
   display: flex;
@@ -44,7 +39,7 @@ html {
 }
 
 
-.realHead {
+.side-nav .realHead {
   min-height:80px;
   background-color:#1ccfb9;
   font-size:35px;
@@ -53,38 +48,60 @@ html {
   font-weight: lighter;
   padding-top:10px;
   padding-bottom:20px;
+  margin-bottom:15px;
 }
 
-.headText {
+.side-nav .headText {
   padding-top: 0 15px 10px 0;
   line-height:1.2;
 }
-.realHead .headText {
+
+.side-nav .realHead .headText {
   padding-right:15px;
 }
-.headText,.headImg {
+.side-nav .headText,.headImg {
   display:inline-block;
 }
-.realHead .headText {
+.side-nav .realHead .headText {
   width:75%;
 }
 
-.realHead .selectedAddress {
+.side-nav .realHead .selectedAddress {
   font-size:15px;
 }
-.realHead .headImg {
+.side-nav .realHead .headImg {
   min-width:15%;
 }
-.headImg {
+.side-nav .headImg {
   text-align:right;
+}
+
+#sidebar .side-nav li {
+  line-height:1.2;
+}
+#sidebar .side-nav .minorHeader {
+  color:#ee3840;
+  text-align:right;
+}
+
+.blueAction:hover {
+  background-color: #b3e5fc;
 }
 
 .blueAction {
   background-color: #29b6f6;
 }
 
+.cyanAction:hover {
+  background-color: #b2ebf2;
+}
+
 .cyanAction {
   background-color: #26c6da;
+}
+
+.greenAction:hover {
+  background-color: #b2dfdb;
 }
 
 .greenAction {
@@ -98,5 +115,35 @@ html {
   border: 5px;  
   display: inline-block;
   border-radius: 5px;
+  padding-right:15px;  
+  font-size:15px;
+}
+
+.citizenAction:hover {
+  color: black;
+}
+
+#sidebar .side-nav .content {
+  padding-right:15px;
+  padding-left: 20px;
+  margin-bottom:10px;
+}
+#sidebar .side-nav .joinButton {
+  text-align:center;
+  background-color:#ee3840;
+  width:150px;
+  height:40px;
+  border-radius:15px;
+  color:white;
+  font-size:15px;
+  border:0;
+}
+
+#sidebar .side-nav li.buttonContainer {
+  text-align:center;
+}
+li.description {
+  line-height: 20px;
+  padding: 15px 8px;
 
 }
