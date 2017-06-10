@@ -20,14 +20,17 @@ html {
   text-align:right;
 }
 
+.inner-search {
+  display: flex;
+}
 #search {
   width: 40%;
-  display: flex;
   margin: 5px;
 }
 #pac-input {
   background: white;
   padding: 0 5px;
+  margin: 0;
 }
 #search button {
   width: 4em;
@@ -107,4 +110,16 @@ html {
 li.description {
   line-height: 20px;
   padding: 15px 8px;
+}
+.search-results {
+  background-color: white;
+}
+.search-results a {
+  font-size: 12px;
+  white-space: nowrap;
+  display: block;
+  padding: 15px 20px 15px 15px;
+}
+.search-results a:hover {
+  background-color: lightgrey;
 }

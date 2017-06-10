@@ -35,8 +35,11 @@
   </div>
 
   <form id="search">
-    <input id="pac-input" class="controls" type="text" placeholder="חיפוש">
-    <button><i class="material-icons">search</i></button>
+    <div class="inner-search">
+      <input id="pac-input" class="controls" type="text" placeholder="חיפוש" />
+      <button><i class="material-icons">search</i></button>
+    </div>
+    <div class="search-results"></div>
   </form>
   <div id="map"></div>
 
@@ -51,7 +54,12 @@
   </div>
 
 
-  <script type="text/template" id="sidebartemplate">
+  <script type="text/template" id="search-results-template">
+    <a href="#" data-index="{{index}}">
+      {{text}}
+    </a>
+  </script>
+  <script type="text/template" id="sidebar-template">
     <li class="realHead">
       <div class="headText">
         <div class="header">מאבק הרכבת</div>

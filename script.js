@@ -50,19 +50,37 @@ function render(templateString, obj) {
   return templateString.replace(/{{.+}}/g, function (found) {
     var content = obj[found.replace('{{', '').replace('}}', '')];
     for (var el in entityMap) {
-      content = content.replace(new RegExp(el, 'g'), entityMap[el]);
+      content = content.toString().replace(new RegExp(el, 'g'), entityMap[el]);
     }
     return content;
   })
 }
 
-var template = document.getElementById('sidebartemplate').innerHTML
-
-
 function renderSideBar (data) {
-  var rendered = render(template, data)
-  $('#slide-out').html(rendered)
+  var template = document.getElementById('sidebar-template').innerHTML
+  var html = render(template, data)
+  $('#slide-out').html(html)
+
   $('.button-collapse').click()
+}
+
+function renderSearchResults(data) {
+  $('.search-results a').off('click');
+  var template = document.getElementById('search-results-template').innerHTML
+  var elementsList = data.map(function(datum, index) {
+    return render(template, {
+      text: datum.name,
+      index: index
+    });
+  });
+  var html = elementsList.join('')
+  $('.search-results').html(html)
+  $('.search-results a').on('click', function openMarker() {
+    var index = $(this).data('index');
+    $('.search-results').html('')
+    $('#pac-input').text('');
+    renderSideBar(globalData[index]);
+  })
 }
 
 function downloadPlaces (cb) {
@@ -99,7 +117,8 @@ function downloadPlaces (cb) {
 }
 
 $(".button-collapse").sideNav();
-var geocoder;
+var geocoder = null;
+var globalData = [];
 jsonp('https://maps.googleapis.com/maps/api/js?libraries=places&key=' + KEY, function initMap () {
   // init map
   var map = new google.maps.Map(document.getElementById('map'), {
@@ -110,10 +129,24 @@ jsonp('https://maps.googleapis.com/maps/api/js?libraries=places&key=' + KEY, fun
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(input);
 
   geocoder = new google.maps.Geocoder();
+  $('form').on('submit', function() { return false; })
+  // set handlers on search
+  $('#pac-input').on('keydown', function handleTypingIntoSearch(event) {
+    var input = event.currentTarget.value;
+    var searchInAddresses = globalData.filter(function(datum) {
+      return datum.address.indexOf(input) !== -1;
+    });
+    var searchInNames = globalData.filter(function(datum) {
+      return datum.name.indexOf(input) !== -1;
+    });
+    var results = searchInNames.concat(searchInAddresses).slice(0, 5);
+    renderSearchResults(results);
+  })
 
   // get the places where things happened from the "backend" (excel file)
   downloadPlaces(function findAddresses(err, data) {
     console.log('le data', data)
+    globalData = data;
     data.forEach(function processEachMaavak(datum, index) {
       var address = datum.address;
       var name = datum.name;
