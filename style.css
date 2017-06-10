@@ -82,9 +82,48 @@ html {
 #sidebar .side-nav .minorHeader {
   color:#ee3840;
   text-align:right;
-  padding-right:15px;  
-  font-size:25px;
 }
+
+.blueAction:hover {
+  background-color: #81d4fa;
+}
+
+.blueAction {
+  background-color: #29b6f6;
+}
+
+.cyanAction:hover {
+  background-color: #80deea;
+}
+
+.cyanAction {
+  background-color: #26c6da;
+}
+
+.greenAction:hover {
+  background-color: #b2dfdb;
+}
+
+.greenAction {
+  background-color: #80cbc4;
+}
+
+.citizenAction {
+  padding: 20px;
+  width: 120px;
+  color: white;
+  border: 5px;  
+  display: inline-block;
+  border-radius: 5px;
+  padding-right:15px;  
+  font-size:17px;
+  transition: all 0.15s linear;   
+}
+
+/*.citizenAction:hover {
+  color: black;
+}*/
+
 #sidebar .side-nav .content {
   padding-right:15px;
   padding-left: 20px;
