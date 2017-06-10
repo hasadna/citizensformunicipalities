@@ -18,9 +18,7 @@
 <body>
   <div id="sidebar">
     <ul id="slide-out" class="side-nav"></ul>
-    <a href="#" data-activates="slide-out" class="button-collapse">
-      <i class="material-icons">menu</i>
-      </a>
+    <a href="#" data-activates="slide-out" class="button-collapse"></a>
   </div>
 
   <div class="fixed-action-btn">
@@ -53,10 +51,15 @@
           
 
   <script type="text/template" id="sidebartemplate">
-    <li>
-      <a class="header">מאבק הרכבת</a>
+    <li class="realHead">
+      <div class="headText">
+        <div class="header">מאבק הרכבת</div>
+        <div class="selectedAddress">{{address}}</div>
+      </div>
+      <div class="headImg">
+        <img src="props/eventIcon.png" style="max-width:50px;" />
+      </div>
     </li>
-    <li class="selectedAddress">{{address}}</li>
     <li><a class="subheader">סטטוס</a></li>
     <li class="status">{{status}}</li>
     <li><a class="subheader">תיאור</a></li>
@@ -64,13 +67,7 @@
     <li><a class="subheader">טענות</a></li>
     <li class="description">{{claims}} </li>
   </script>
-  <script src="script.js">
-
-  </script>
-  <script>
-    $(".button-collapse").sideNav();
-    $(".button-collapse").click()
-  </script>
+  <script src="script.js">  </script>
 </body>
 
 </html>
