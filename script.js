@@ -2,7 +2,7 @@ var KEY = 'AIzaSyBurnP2Y9-YavLSun_85ZntENUfF4w45OE'; // only works on production
 // use these for the labels numbering
 var hebrewLetters = 'אבגדהוזחטיכלמנסעפצקרשת';
 
-if(location.hostname.indexOf("localhost") > -1) { // development key
+if (location.hostname.indexOf("localhost") > -1) { // development key
   KEY = "AIzaSyAvH9YqCyrBQoZeXlfNnYDRpngdwYmZEnw";
 }
 
@@ -47,7 +47,7 @@ function render(templateString, obj) {
     '`': '&#x60;',
     '=': '&#x3D;'
   };
-  return templateString.replace(/{{.+}}/g, function (found) {
+  return templateString.replace(/{{.+?}}/g, function (found) {
     var content = obj[found.replace('{{', '').replace('}}', '')];
     for (var el in entityMap) {
       content = content.toString().replace(new RegExp(el, 'g'), entityMap[el]);
@@ -60,17 +60,16 @@ function renderSideBar (data) {
   var template = document.getElementById('sidebar-template').innerHTML
   var html = render(template, data)
   $('#slide-out').html(html)
-
   $('.button-collapse').click()
 }
 
 function renderSearchResults(data) {
   $('.search-results a').off('click');
   var template = document.getElementById('search-results-template').innerHTML
-  var elementsList = data.map(function(datum, index) {
+  var elementsList = data.map(function(datum) {
     return render(template, {
       text: datum.name,
-      index: index
+      index: datum.index,
     });
   });
   var html = elementsList.join('')
@@ -83,9 +82,8 @@ function renderSearchResults(data) {
   })
 }
 
-function downloadPlaces (cb) {
-  if(window.SAMPLE_DATA) cb(null, window.SAMPLE_DATA)
-
+function downloadPlaces(cb) {
+  if (window.SAMPLE_DATA) cb(null, window.SAMPLE_DATA)
   var xhr = new XMLHttpRequest
   xhr.open('GET', 'http://cfm-csv-proxy.hstatic.org')
   xhr.onload = function (e) {
@@ -99,8 +97,9 @@ function downloadPlaces (cb) {
   xhr.send();
   function parse(text) {
     var csv = Papa.parse(text).data.slice(1);
-    var objects = csv.slice(1).map(function (arr) {
+    var objects = csv.slice(1).map(function (arr, index) {
       return {
+        index: index,
         dateAdded: new Date(arr[0]),
         name: arr[1],
         sector: arr[2],
@@ -109,7 +108,9 @@ function downloadPlaces (cb) {
         address: arr[5],
         emailAddress: arr[6],
         facebookGroup: arr[7],
-        otherLinks: arr[8]
+        facebookExists: Boolean(arr[7]) ? "showComponent" : "dontShowComponent",
+        otherLinks: arr[7],
+        otherLinksExists: Boolean(arr[7]) ? "showComponent" : "dontShowComponent",
       }
     })
     return objects;
@@ -119,7 +120,7 @@ function downloadPlaces (cb) {
 $(".button-collapse").sideNav();
 var geocoder = null;
 var globalData = [];
-jsonp('https://maps.googleapis.com/maps/api/js?libraries=places&key=' + KEY, function initMap () {
+jsonp('https://maps.googleapis.com/maps/api/js?libraries=places&key=' + KEY, function initMap() {
   // init map
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
@@ -140,6 +141,10 @@ jsonp('https://maps.googleapis.com/maps/api/js?libraries=places&key=' + KEY, fun
       return datum.name.indexOf(input) !== -1;
     });
     var results = searchInNames.concat(searchInAddresses).slice(0, 5);
+    var indices = results.map(function(el) { return el.index; });
+    results = results.filter(function(el, i, arr) {
+      return indices.indexOf(el.index) === i;
+    });
     renderSearchResults(results);
   })
 
@@ -150,7 +155,7 @@ jsonp('https://maps.googleapis.com/maps/api/js?libraries=places&key=' + KEY, fun
     data.forEach(function processEachMaavak(datum, index) {
       var address = datum.address;
       var name = datum.name;
-      // get the latitude-longitutde for each address, because thats the format 
+      // get the locationitude-longitutde for each address, because thats the format 
       // new Marker wants it in
       geocoder.geocode({ address }, function (results, status) {
         if (status == 'OK') {
@@ -168,7 +173,7 @@ jsonp('https://maps.googleapis.com/maps/api/js?libraries=places&key=' + KEY, fun
   });
 });
 
-function howToSubmit () {
+function howToSubmit() {
   $('#how-to-submit').modal()
   $.get('how-to-submit.html').then(function (content) {
     $('#how-to-submit .content').html(content);
