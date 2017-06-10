@@ -78,3 +78,25 @@ html {
 .headImg {
   text-align:right;
 }
+
+.blueAction {
+  background-color: #29b6f6;
+}
+
+.cyanAction {
+  background-color: #26c6da;
+}
+
+.greenAction {
+  background-color: #26a69a;
+}
+
+.citizenAction {
+  padding: 20px;
+  width: 120px;
+  color: white;
+  border: 5px;  
+  display: inline-block;
+  border-radius: 5px;
+
+}
