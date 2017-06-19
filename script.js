@@ -97,7 +97,7 @@ function downloadPlaces(cb) {
   xhr.send();
   function parse(text) {
     var csv = Papa.parse(text).data.slice(1);
-    var objects = csv.slice(1).map(function (arr, index) {
+    var objects = csv.map(function (arr, index) {
       return {
         index: index,
         dateAdded: new Date(arr[0]),
